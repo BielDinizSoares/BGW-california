@@ -1,11 +1,19 @@
 ---
 import logo from "../assets/BGW-logo.webp";
+import Image from "astro/components/Image.astro";
+import Button from "./Button.astro";
 ---
 
 <nav>
   <div class="nav-container">
     <a href="/" class="logo-link">
-      <img class="bgw-logo" src={logo.src} alt="BGW California Logo" />
+      <Image
+        class="bgw-logo"
+        src={logo}
+        alt="BGW California Logo"
+        width={70}
+        height={70}
+      />
       <div class="logo-text">
         <span class="brand-name">BGW</span>
         <span class="brand-location">California</span>
@@ -13,28 +21,36 @@ import logo from "../assets/BGW-logo.webp";
     </a>
 
     <ul class="links">
-      <li><a href="#">Home</a></li>
+      <li>
+        <a href="#">
+          <Button variant="link">Home</Button>
+        </a>
+      </li>
 
       <li class="dropdown-wrapper">
-        <a href="#" class="menu-item">About Us ▾</a>
+        <Button variant="link">About Us ▾</Button>
         <ul class="dropdown-menu">
-          <li><a href="#">Benefits</a></li>
+          <li><Button variant="link" width="full">Benefits</Button></li>
         </ul>
       </li>
 
       <li class="dropdown-wrapper">
-        <a href="#" class="menu-item">Services ▾</a>
+        <Button variant="link">Services ▾</Button>
         <ul class="dropdown-menu">
-          <li><a href="#">Plasti Dip</a></li>
-          <li><a href="#">Paint Protection</a></li>
-          <li><a href="#">Vinyl Wrap</a></li>
-          <li><a href="#">Window Tint</a></li>
+          <li><Button variant="link" width="full">Plasti Dip</Button></li>
+          <li><Button variant="link" width="full">Paint Protection</Button></li>
+          <li><Button variant="link" width="full">Vinyl Wrap</Button></li>
+          <li><Button variant="link" width="full">Window Tint</Button></li>
         </ul>
       </li>
 
-      <li><a href="#">Gallery</a></li>
+      <li>
+        <Button variant="link">Gallery</Button>
+      </li>
 
-      <li><button>Contact Us</button></li>
+      <li>
+        <Button variant="primary" theme="light">CONTACT US</Button>
+      </li>
     </ul>
   </div>
 </nav>
@@ -79,7 +95,7 @@ import logo from "../assets/BGW-logo.webp";
 
   nav.scrolled {
     background: white;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--box-shadow-sm);
   }
 
   .nav-container {
@@ -97,7 +113,7 @@ import logo from "../assets/BGW-logo.webp";
     height: 100px;
     width: auto;
     display: block;
-    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.2));
+    /* filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.2)); */
     transition: filter 0.3s ease;
   }
 
@@ -108,7 +124,7 @@ import logo from "../assets/BGW-logo.webp";
   .links {
     display: flex;
     align-items: center;
-    gap: 40px;
+    /* gap: 40px; */
     list-style: none;
     margin: 0;
     padding: 0;
@@ -157,10 +173,10 @@ import logo from "../assets/BGW-logo.webp";
     visibility: hidden;
     transform: translateY(20px);
     position: absolute;
-    top: 100%;
-    left: -20px;
-    background-color: white;
-    min-width: 240px;
+    top: calc(100% - 20px);
+    left: 38px;
+    background-color: var(--color-background);
+    min-width: 300px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     list-style: none;
     padding: 15px 0;
@@ -169,7 +185,7 @@ import logo from "../assets/BGW-logo.webp";
     transition: all 0.3s ease-in-out;
   }
 
-  .dropdown-menu::before {
+  /* .dropdown-menu::before {
     content: "";
     position: absolute;
     top: -30px;
@@ -177,7 +193,7 @@ import logo from "../assets/BGW-logo.webp";
     width: 100%;
     height: 30px;
     background: transparent;
-  }
+  } */
 
   .dropdown-wrapper:hover .dropdown-menu {
     opacity: 1;
@@ -193,22 +209,22 @@ import logo from "../assets/BGW-logo.webp";
   .dropdown-menu li a {
     display: block;
     padding: 12px 25px;
-    color: #666;
+    color: var(--color-text-dark);
     font-size: 13px;
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid var(--border-color);
     height: auto;
   }
 
   .dropdown-menu li a:hover {
-    background-color: #f8f8f8;
+    background-color: var(--border-color);
     color: black;
     padding-left: 35px;
   }
 
   button {
+    color: var(--secondary-color);
     background-color: rgba(255, 255, 255, 0.12);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    border: 1px solid var(--primary-color);
     padding: 14px 30px;
     text-transform: uppercase;
     font-weight: bold;
@@ -252,13 +268,13 @@ import logo from "../assets/BGW-logo.webp";
 
   .logo-text {
     display: flex;
-    color: var(--primary-color);
+    color: var(--color-text-light);
     flex-direction: column;
   }
 
   .brand-name {
-    color: var(--primary-color);
-    font-size: 28px;
+    color: var(--color-text-light);
+    font-size: 24px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: 1px;
@@ -266,7 +282,7 @@ import logo from "../assets/BGW-logo.webp";
   }
 
   .brand-location {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--color-text-dark);
     font-size: 13px;
     font-weight: 400;
     letter-spacing: 2px;

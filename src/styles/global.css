@@ -2,17 +2,41 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Tahoma", sans-serif;
 }
 
 body {
-    font-family: sans-serif;
-    background-color: black;
+    background-color: var(--color-background);
 }
 
 :root {
-    --primary-color: #111ee6;
-    --secondary-color: #ffffff;
-    --accent-color: #333333;
-    --background-color: #000000;
-    --text-color: #ffffff;
+    --color-primary: #3843be;
+    --color-primary-foreground: #FFFFFF;
+
+    --color-background: #0B0E14;
+    --color-background-foreground: #FFFFFF;
+
+    --color-surface: #1E293B;
+    --color-text-light: #FFFFFF;
+    --color-text-dark: #A0AEC0;
+    --border-color: #666;
+
+    --font-family-sans: 'Inter', sans-serif;
+    --font-size-base: 1rem;
+    --line-height-base: 1.6;
+
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    /* 16px */
+    --spacing-md: 1.5rem;
+    /* 24px */
+    --spacing-lg: 2rem;
+    /* 32px */
+    --spacing-xl: 3rem;
+    /* 48px */
+
+    /* Borda/Sombra */
+    --border-radius-sm: 0.25rem;
+    --border-radius-md: 0.5rem;
+    --box-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
