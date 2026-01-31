@@ -1,11 +1,15 @@
 ---
-import logo from '../assets/BGW-logo.png';
+import logo from "../assets/BGW-logo.webp";
 ---
 
 <nav>
   <div class="nav-container">
     <a href="/" class="logo-link">
       <img class="bgw-logo" src={logo.src} alt="BGW California Logo" />
+      <div class="logo-text">
+        <span class="brand-name">BGW</span>
+        <span class="brand-location">California</span>
+      </div>
     </a>
 
     <ul class="links">
@@ -29,7 +33,7 @@ import logo from '../assets/BGW-logo.png';
       </li>
 
       <li><a href="#">Gallery</a></li>
-      
+
       <li><button>Contact Us</button></li>
     </ul>
   </div>
@@ -38,15 +42,15 @@ import logo from '../assets/BGW-logo.png';
 <script is:inline>
   // Toggle solid background once the user leaves the hero area
   const onScroll = () => {
-    const nav = document.querySelector('nav');
+    const nav = document.querySelector("nav");
     if (!nav) return;
     const shouldBeSolid = window.scrollY > 40;
-    nav.classList.toggle('scrolled', shouldBeSolid);
+    nav.classList.toggle("scrolled", shouldBeSolid);
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener("DOMContentLoaded", () => {
     onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
   });
 </script>
 
@@ -60,15 +64,22 @@ import logo from '../assets/BGW-logo.png';
     top: 0;
     left: 0;
     z-index: 200;
-    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 90%);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35) 0%,
+      rgba(0, 0, 0, 0) 90%
+    );
     box-shadow: none;
     font-family: Arial, Helvetica, sans-serif;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      box-shadow 0.3s ease,
+      color 0.3s ease;
   }
 
   nav.scrolled {
     background: white;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   }
 
   .nav-container {
@@ -86,7 +97,7 @@ import logo from '../assets/BGW-logo.png';
     height: 100px;
     width: auto;
     display: block;
-    filter: drop-shadow(0 0 6px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.2));
     transition: filter 0.3s ease;
   }
 
@@ -150,7 +161,7 @@ import logo from '../assets/BGW-logo.png';
     left: -20px;
     background-color: white;
     min-width: 240px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     list-style: none;
     padding: 15px 0;
     border-top: 4px solid black;
@@ -195,9 +206,9 @@ import logo from '../assets/BGW-logo.png';
   }
 
   button {
-    background-color: rgba(255,255,255,0.12);
+    background-color: rgba(255, 255, 255, 0.12);
     color: white;
-    border: 1px solid rgba(255,255,255,0.35);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     padding: 14px 30px;
     text-transform: uppercase;
     font-weight: bold;
@@ -210,7 +221,7 @@ import logo from '../assets/BGW-logo.png';
   }
 
   button:hover {
-    background-color: rgba(255,255,255,0.18);
+    background-color: rgba(255, 255, 255, 0.18);
     transform: scale(1.05);
   }
 
@@ -222,5 +233,52 @@ import logo from '../assets/BGW-logo.png';
 
   nav.scrolled button:hover {
     background-color: #333;
+  }
+
+  .bgw-logo {
+    height: 70px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.2));
+    transition: filter 0.3s ease;
+  }
+
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .logo-text {
+    display: flex;
+    color: var(--primary-color);
+    flex-direction: column;
+  }
+
+  .brand-name {
+    color: var(--primary-color);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+  }
+
+  .brand-location {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+
+  nav.scrolled .brand-name {
+    color: black;
+  }
+
+  nav.scrolled .brand-location {
+    color: #555;
   }
 </style>

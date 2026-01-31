@@ -4,7 +4,15 @@
     padding: 0;
 }
 
-body{
+body {
     font-family: sans-serif;
     background-color: black;
+}
+
+:root {
+    --primary-color: #111ee6;
+    --secondary-color: #ffffff;
+    --accent-color: #333333;
+    --background-color: #000000;
+    --text-color: #ffffff;
 }
