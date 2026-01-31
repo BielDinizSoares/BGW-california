@@ -1,5 +1,5 @@
 ---
-import logo from '../assets/bgw-logo-wc.png';
+import logo from '../assets/BGW-logo.png';
 ---
 
 <nav>
@@ -35,17 +35,40 @@ import logo from '../assets/bgw-logo-wc.png';
   </div>
 </nav>
 
+<script is:inline>
+  // Toggle solid background once the user leaves the hero area
+  const onScroll = () => {
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+    const shouldBeSolid = window.scrollY > 40;
+    nav.classList.toggle('scrolled', shouldBeSolid);
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  });
+</script>
+
 <style>
   nav {
     width: 100%;
     height: 100px;
-    background-color: white;
     display: flex;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    position: relative;
-    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 90%);
+    box-shadow: none;
     font-family: Arial, Helvetica, sans-serif;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  }
+
+  nav.scrolled {
+    background: white;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
   }
 
   .nav-container {
@@ -60,9 +83,15 @@ import logo from '../assets/bgw-logo-wc.png';
   }
 
   .bgw-logo {
-    height: 120px;
+    height: 100px;
     width: auto;
     display: block;
+    filter: drop-shadow(0 0 6px rgba(0,0,0,0.2));
+    transition: filter 0.3s ease;
+  }
+
+  nav.scrolled .bgw-logo {
+    filter: none;
   }
 
   .links {
@@ -88,7 +117,7 @@ import logo from '../assets/bgw-logo-wc.png';
 
   .links a {
     text-decoration: none;
-    color: #333;
+    color: white;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 600;
@@ -101,6 +130,14 @@ import logo from '../assets/bgw-logo-wc.png';
   }
 
   .links a:hover {
+    color: #f1f1f1;
+  }
+
+  nav.scrolled .links a {
+    color: #333;
+  }
+
+  nav.scrolled .links a:hover {
     color: black;
   }
 
@@ -158,9 +195,9 @@ import logo from '../assets/bgw-logo-wc.png';
   }
 
   button {
-    background-color: black;
+    background-color: rgba(255,255,255,0.12);
     color: white;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.35);
     padding: 14px 30px;
     text-transform: uppercase;
     font-weight: bold;
@@ -173,7 +210,17 @@ import logo from '../assets/bgw-logo-wc.png';
   }
 
   button:hover {
-    background-color: #333;
+    background-color: rgba(255,255,255,0.18);
     transform: scale(1.05);
+  }
+
+  nav.scrolled button {
+    background-color: black;
+    border-color: black;
+    color: white;
+  }
+
+  nav.scrolled button:hover {
+    background-color: #333;
   }
 </style>
