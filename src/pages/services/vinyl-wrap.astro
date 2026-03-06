@@ -1,0 +1,88 @@
+---
+import ServicePageLayout from "../../components/ServicePageLayout.astro";
+import heroImage from "../../assets/services/vinyl-wrap-hero.png";
+import showcaseImage from "../../assets/services/vinyl-wrap-showcase.png";
+import hl1Image from "../../assets/services/vinyl-wrap-hl1.png";
+import hl2Image from "../../assets/services/vinyl-wrap-hl2.png";
+import hl3Image from "../../assets/services/vinyl-wrap-hl3.png";
+import plastiHero from "../../assets/services/plasti-dip-hero.png";
+import ppfHero from "../../assets/services/paint-protection-hero.png";
+import tintHero from "../../assets/services/window-tint-hero.png";
+
+const highlights = [
+  {
+    title: "Total Transformation",
+    description:
+      "Completely change your vehicle's appearance in days — matte, gloss, satin, chrome, carbon fiber, or any custom color you can imagine.",
+    image: hl1Image,
+  },
+  {
+    title: "Preserves Resale Value",
+    description:
+      "The original factory paint stays protected beneath the wrap. Remove it when you're ready to sell and reveal a pristine finish underneath.",
+    image: hl2Image,
+  },
+  {
+    title: "Custom Graphics",
+    description:
+      "From commercial fleet branding to bespoke racing stripes and accent designs — vinyl wraps offer limitless creative and branding possibilities.",
+    image: hl3Image,
+  },
+];
+
+const specs = [
+  { label: "Lifespan", value: "3 – 7 years", icon: "shield" },
+  {
+    label: "Available Finishes",
+    value: "Matte, Gloss, Satin, Chrome, Carbon, Brushed Metal",
+    icon: "paintbrush",
+  },
+  {
+    label: "Installation Time",
+    value: "3 – 5 days (full body)",
+    icon: "clock",
+  },
+  {
+    label: "Coverage Options",
+    value: "Full body, Partial, Accents, Chrome delete",
+    icon: "sparkles",
+  },
+  { label: "Removability", value: "Fully reversible", icon: "bolt" },
+  { label: "Brand", value: "3M / Avery Dennison / KPMF", icon: "tag" },
+  { label: "Care", value: "Hand wash recommended", icon: "wrench" },
+];
+
+const siblings = [
+  {
+    title: "Plasti Dip",
+    slug: "plasti-dip",
+    tagline: "Removable & Versatile",
+    image: plastiHero,
+  },
+  {
+    title: "Paint Protection Film",
+    slug: "paint-protection",
+    tagline: "Invisible Armor",
+    image: ppfHero,
+  },
+  {
+    title: "Window Tint",
+    slug: "window-tint",
+    tagline: "Privacy & Performance",
+    image: tintHero,
+  },
+];
+---
+
+<ServicePageLayout
+  name="Vinyl Wrap"
+  slug="vinyl-wrap"
+  tagline="Total Transformation"
+  headline="Redefine your vehicle's identity."
+  description="A vinyl wrap is the fastest, most dramatic way to transform the look of your car, truck, or SUV. Using premium cast vinyl films from 3M, Avery Dennison, and KPMF, we deliver flawless full-body color changes, chrome deletes, accent packages, and commercial fleet graphics. Every installation is performed in our climate-controlled facility by certified technicians who treat your vehicle like their own. The wrap protects the factory paint underneath, preserving resale value while giving you the freedom to change your mind — remove or re-wrap whenever you choose."
+  heroImage={heroImage}
+  showcaseImage={showcaseImage}
+  highlights={highlights}
+  specs={specs}
+  siblings={siblings}
+/>

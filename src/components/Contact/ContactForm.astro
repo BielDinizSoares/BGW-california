@@ -1,0 +1,217 @@
+---
+---
+
+<div class="w-full max-w-[520px]">
+
+  <!-- Form header -->
+  <div class="mb-10">
+    <p class="text-blue-600 text-xs font-bold uppercase tracking-[4px] mb-3">Free Estimate</p>
+    <h2 class="text-white text-4xl font-bold uppercase leading-tight tracking-tight mb-3">
+      Get Your Quote
+    </h2>
+    <p class="text-zinc-500 text-sm leading-relaxed">
+      Fill out the form below and our team will get back to you within 24 hours.
+    </p>
+  </div>
+
+  <form data-capture-form novalidate class="flex flex-col gap-5">
+
+    <!-- Name -->
+    <div class="flex flex-col gap-1.5">
+      <label for="name" class="text-zinc-300 text-xs font-bold uppercase tracking-[2px]">
+        Name <span class="text-blue-600">*</span>
+      </label>
+      <input
+        data-error="false"
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Enter your full name"
+        class="w-full bg-zinc-900 border border-zinc-700 text-white text-sm px-4 py-3.5
+               placeholder:text-zinc-600 rounded-none
+               focus:outline-none focus:border-blue-600 focus:bg-zinc-800
+               data-[error=true]:border-red-500
+               transition-colors duration-200"
+      />
+      <span data-error-msg="name" class="hidden text-red-500 text-xs tracking-wide"></span>
+    </div>
+
+    <!-- Phone -->
+    <div class="flex flex-col gap-1.5">
+      <label for="phone" class="text-zinc-300 text-xs font-bold uppercase tracking-[2px]">
+        Phone <span class="text-blue-600">*</span>
+      </label>
+      <div class="relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm pointer-events-none select-none">+1</span>
+        <input
+          data-error="false"
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="(000) 000-0000"
+          inputmode="numeric"
+          autocomplete="tel"
+          class="w-full bg-zinc-900 border border-zinc-700 text-white text-sm pl-10 pr-4 py-3.5
+                 placeholder:text-zinc-600 rounded-none
+                 focus:outline-none focus:border-blue-600 focus:bg-zinc-800
+                 data-[error=true]:border-red-500
+                 transition-colors duration-200"
+        />
+      </div>
+      <span data-error-msg="phone" class="hidden text-red-500 text-xs tracking-wide"></span>
+    </div>
+
+    <!-- Email -->
+    <div class="flex flex-col gap-1.5">
+      <label for="email" class="text-zinc-300 text-xs font-bold uppercase tracking-[2px]">
+        Email <span class="text-blue-600">*</span>
+      </label>
+      <input
+        data-error="false"
+        type="email"
+        id="email"
+        name="email"
+        placeholder="your.email@example.com"
+        autocomplete="email"
+        class="w-full bg-zinc-900 border border-zinc-700 text-white text-sm px-4 py-3.5
+               placeholder:text-zinc-600 rounded-none
+               focus:outline-none focus:border-blue-600 focus:bg-zinc-800
+               data-[error=true]:border-red-500
+               transition-colors duration-200"
+      />
+      <span data-error-msg="email" class="hidden text-red-500 text-xs tracking-wide"></span>
+    </div>
+
+    <!-- Message -->
+    <div class="flex flex-col gap-1.5">
+      <label for="message" class="text-zinc-300 text-xs font-bold uppercase tracking-[2px]">
+        Message <span class="text-blue-600">*</span>
+      </label>
+      <textarea
+        data-error="false"
+        id="message"
+        name="message"
+        placeholder="Describe your vehicle and the service you're interested in"
+        rows="5"
+        class="w-full bg-zinc-900 border border-zinc-700 text-white text-sm px-4 py-3.5
+               placeholder:text-zinc-600 rounded-none resize-y
+               focus:outline-none focus:border-blue-600 focus:bg-zinc-800
+               data-[error=true]:border-red-500
+               transition-colors duration-200"
+      ></textarea>
+      <span data-error-msg="message" class="hidden text-red-500 text-xs tracking-wide"></span>
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      data-submit-button
+      data-success="false"
+      class="w-full mt-2 py-4 bg-blue-600 hover:bg-blue-700
+             data-[success=true]:bg-green-600 data-[success=true]:pointer-events-none
+             text-white font-bold text-sm uppercase tracking-[2px]
+             rounded-none cursor-pointer
+             transition-colors duration-300"
+    >
+      Get a Free Quote
+    </button>
+
+  </form>
+</div>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("[data-capture-form]");
+    if (!form) return;
+
+    const submitButton = form.querySelector("[data-submit-button]");
+    const fields = {
+      name: form.querySelector("#name"),
+      phone: form.querySelector("#phone"),
+      email: form.querySelector("#email"),
+      message: form.querySelector("#message"),
+    };
+
+    const getErrorEl = (key) => form.querySelector(`[data-error-msg="${key}"]`);
+
+    const phoneCorrection = (value) => value.replace(/\D/g, "").slice(0, 10);
+
+    const formatPhone = (raw) => {
+      if (!raw) return "";
+      const cleaned = phoneCorrection(raw);
+      const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+      return match ? `(${match[1]}) ${match[2]}-${match[3]}` : cleaned.replace(/^(\d{3})(\d{3})(\d)/, "($1) $2-$3");
+    };
+
+    const clearError = (key) => {
+      const errorEl = getErrorEl(key);
+      if (errorEl) {
+        errorEl.textContent = "";
+        errorEl.classList.add("hidden");
+      }
+      if (fields[key]) {
+        fields[key].dataset.error = "false";
+      }
+    };
+
+    const setError = (key, message) => {
+      const errorEl = getErrorEl(key);
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove("hidden");
+      }
+      if (fields[key]) {
+        fields[key].dataset.error = "true";
+      }
+    };
+
+    const validate = () => {
+      let isValid = true;
+      Object.keys(fields).forEach((key) => clearError(key));
+
+      if (!fields.name.value.trim()) {
+        setError("name", "Name is required.");
+        isValid = false;
+      }
+      if (phoneCorrection(fields.phone.value).length !== 10) {
+        setError("phone", "A valid 10-digit phone number is required.");
+        isValid = false;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(fields.email.value)) {
+        setError("email", "A valid email address is required.");
+        isValid = false;
+      }
+      if (!fields.message.value.trim()) {
+        setError("message", "Message is required.");
+        isValid = false;
+      }
+      return isValid;
+    };
+
+    form.addEventListener("input", (e) => {
+      const target = e.target;
+      if (target.id === "phone") {
+        target.value = formatPhone(target.value);
+      }
+      if (fields[target.id]) {
+        clearError(target.id);
+      }
+    });
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+
+      const originalText = submitButton.textContent;
+      submitButton.textContent = "Sent Successfully!";
+      submitButton.dataset.success = "true";
+      form.reset();
+
+      setTimeout(() => {
+        submitButton.textContent = originalText;
+        submitButton.dataset.success = "false";
+      }, 3000);
+    });
+  });
+</script>

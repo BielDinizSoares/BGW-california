@@ -1,0 +1,84 @@
+---
+import ServicePageLayout from "../../components/ServicePageLayout.astro";
+import heroImage from "../../assets/services/plasti-dip-hero.png";
+import showcaseImage from "../../assets/services/plasti-dip-showcase.png";
+import hl1Image from "../../assets/services/plasti-dip-hl1.png";
+import hl2Image from "../../assets/services/plasti-dip-hl2.png";
+import hl3Image from "../../assets/services/plasti-dip-hl3.png";
+import ppfHero from "../../assets/services/paint-protection-hero.png";
+import vinylHero from "../../assets/services/vinyl-wrap-hero.png";
+import tintHero from "../../assets/services/window-tint-hero.png";
+
+const highlights = [
+  {
+    title: "Fully Removable",
+    description:
+      "Peels off cleanly without damaging the original paint or surface. Perfect for temporary transformations or seasonal changes.",
+    image: hl1Image,
+  },
+  {
+    title: "Unlimited Colors",
+    description:
+      "Over 100 colors and finishes available — from matte and satin to metallic and fluorescent. Mix and match to create a unique look.",
+    image: hl2Image,
+  },
+  {
+    title: "Surface Protection",
+    description:
+      "Acts as a protective barrier against minor scratches, UV exposure, and road debris while the coating is applied.",
+    image: hl3Image,
+  },
+];
+
+const specs = [
+  { label: "Durability", value: "3 – 5 years", icon: "shield" },
+  {
+    label: "Available Finishes",
+    value: "Matte, Satin, Gloss, Metallic",
+    icon: "paintbrush",
+  },
+  { label: "Cure Time", value: "4 – 8 hours", icon: "clock" },
+  { label: "Coats Applied", value: "5 – 6 layers", icon: "cube" },
+  {
+    label: "Coverage Options",
+    value: "Full body, Partial, Wheels, Trim",
+    icon: "sparkles",
+  },
+  { label: "Removability", value: "100% peelable", icon: "bolt" },
+  { label: "Temperature Resistance", value: "-30°F to 200°F", icon: "fire" },
+];
+
+const siblings = [
+  {
+    title: "Paint Protection Film",
+    slug: "paint-protection",
+    tagline: "Invisible Armor",
+    image: ppfHero,
+  },
+  {
+    title: "Vinyl Wrap",
+    slug: "vinyl-wrap",
+    tagline: "Total Transformation",
+    image: vinylHero,
+  },
+  {
+    title: "Window Tint",
+    slug: "window-tint",
+    tagline: "Privacy & Performance",
+    image: tintHero,
+  },
+];
+---
+
+<ServicePageLayout
+  name="Plasti Dip"
+  slug="plasti-dip"
+  tagline="Removable & Versatile Coating"
+  headline="A new look without the commitment."
+  description="Plasti Dip is a flexible, rubber-based coating that can be sprayed onto virtually any surface. It provides a durable matte or glossy finish that protects your vehicle's original paint from UV rays, minor scratches, and road contaminants. The best part? When you're ready for a change, it peels off cleanly — revealing the factory finish beneath, untouched and pristine. Whether you want a full-body color change, blacked-out trim, or custom-dipped wheels, Plasti Dip offers limitless creative freedom with zero long-term commitment."
+  heroImage={heroImage}
+  showcaseImage={showcaseImage}
+  highlights={highlights}
+  specs={specs}
+  siblings={siblings}
+/>

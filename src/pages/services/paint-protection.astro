@@ -1,0 +1,80 @@
+---
+import ServicePageLayout from "../../components/ServicePageLayout.astro";
+import heroImage from "../../assets/services/paint-protection-hero.png";
+import showcaseImage from "../../assets/services/paint-protection-showcase.png";
+import hl1Image from "../../assets/services/ppf-hl1.png";
+import hl2Image from "../../assets/services/ppf-hl2.png";
+import hl3Image from "../../assets/services/ppf-hl3.png";
+import plastiHero from "../../assets/services/plasti-dip-hero.png";
+import vinylHero from "../../assets/services/vinyl-wrap-hero.png";
+import tintHero from "../../assets/services/window-tint-hero.png";
+
+const highlights = [
+  {
+    title: "Self-Healing Technology",
+    description:
+      "Minor scratches and swirl marks disappear on their own when exposed to heat. The film constantly restores itself to a flawless finish.",
+    image: hl1Image,
+  },
+  {
+    title: "Invisible Shield",
+    description:
+      "Optically clear film that is virtually undetectable once installed. Your vehicle's color and gloss shine through, completely unaltered.",
+    image: hl2Image,
+  },
+  {
+    title: "Hydrophobic Surface",
+    description:
+      "Built-in hydrophobic top coat repels water, dirt, and contaminants — keeping your car cleaner for longer and making washes effortless.",
+    image: hl3Image,
+  },
+];
+
+const specs = [
+  { label: "Film Thickness", value: "8 mil (200 microns)", icon: "cube" },
+  { label: "Warranty", value: "Up to 10 years", icon: "shield" },
+  { label: "UV Block", value: "99%", icon: "sun" },
+  { label: "Self-Healing", value: "Heat-activated recovery", icon: "sparkles" },
+  {
+    label: "Coverage Packages",
+    value: "Full body, Full front, Track pack, Partial",
+    icon: "eye",
+  },
+  { label: "Finish", value: "Gloss or Matte", icon: "paintbrush" },
+  { label: "Brand", value: "XPEL / 3M / SunTek", icon: "tag" },
+];
+
+const siblings = [
+  {
+    title: "Plasti Dip",
+    slug: "plasti-dip",
+    tagline: "Removable & Versatile",
+    image: plastiHero,
+  },
+  {
+    title: "Vinyl Wrap",
+    slug: "vinyl-wrap",
+    tagline: "Total Transformation",
+    image: vinylHero,
+  },
+  {
+    title: "Window Tint",
+    slug: "window-tint",
+    tagline: "Privacy & Performance",
+    image: tintHero,
+  },
+];
+---
+
+<ServicePageLayout
+  name="Paint Protection"
+  slug="paint-protection"
+  tagline="Invisible Armor for Your Paint"
+  headline="Engineered to preserve perfection."
+  description="Paint Protection Film (PPF) is a military-grade, optically clear urethane film applied to your vehicle's most vulnerable surfaces. It shields against rock chips, road debris, bug acids, bird droppings, and UV degradation — threats that California roads deliver daily. With self-healing technology, minor surface imperfections vanish with ambient heat. The result is a permanently glossy, protected finish that preserves your car's value and eliminates the anxiety of daily driving. We use only premium films from XPEL, 3M, and SunTek, installed by certified technicians with precision fit."
+  heroImage={heroImage}
+  showcaseImage={showcaseImage}
+  highlights={highlights}
+  specs={specs}
+  siblings={siblings}
+/>

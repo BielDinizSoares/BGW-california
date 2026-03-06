@@ -1,0 +1,147 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const categories = [
+  {
+    id: "vinyl-wrap",
+    title: "Vinyl Wrap",
+    slug: "vinyl-wrap",
+    items: [
+      "Matte Black Full Body",
+      "Satin Blue Sedan",
+      "Gloss Racing Green SUV",
+      "Chrome Delete Package",
+      "Carbon Fiber Accents",
+      "Satin Grey Truck",
+    ],
+  },
+  {
+    id: "paint-protection",
+    title: "Paint Protection Film",
+    slug: "paint-protection",
+    items: [
+      "Full Front PPF — Tesla Model 3",
+      "Track Pack — Porsche 911",
+      "Full Body PPF — Mercedes AMG",
+      "Partial Hood & Fenders",
+    ],
+  },
+  {
+    id: "plasti-dip",
+    title: "Plasti Dip",
+    slug: "plasti-dip",
+    items: [
+      "Matte Black Wheels",
+      "Full Body Gunmetal Dip",
+      "Blacked-Out Trim Package",
+      "Custom Red Calipers",
+    ],
+  },
+  {
+    id: "window-tint",
+    title: "Window Tint",
+    slug: "window-tint",
+    items: [
+      "Ceramic 20% — BMW X5",
+      "Carbon 35% — Audi A4",
+      "Full Ceramic Package — Range Rover",
+      "Windshield Strip + Sides",
+    ],
+  },
+];
+---
+
+<Layout title="Portfolio — BGW California">
+  <Navbar />
+
+  <!-- Hero banner -->
+  <section class="bg-zinc-950 pt-[140px] pb-20 border-b border-white/5">
+    <div class="w-full max-w-[1600px] mx-auto px-10">
+      <p class="text-blue-600 text-xs font-bold uppercase tracking-[4px] mb-4">Our Work</p>
+      <h1 class="text-white text-5xl lg:text-7xl font-bold uppercase tracking-tight leading-none mb-6">
+        Portfolio
+      </h1>
+      <p class="text-zinc-500 text-sm max-w-lg leading-relaxed">
+        Browse our recent projects organized by service. Each vehicle is treated with precision, premium materials, and obsessive attention to detail.
+      </p>
+
+      <!-- Category quick-nav -->
+      <nav class="flex flex-wrap gap-3 mt-10">
+        {categories.map((cat) => (
+          <a
+            href={`#${cat.id}`}
+            class="border border-white/15 text-white text-xs font-bold uppercase tracking-[2px]
+                   px-5 py-2.5 no-underline rounded-none
+                   hover:bg-white/5 hover:border-white/30 transition-all duration-300"
+          >{cat.title}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- Category sections -->
+  {categories.map((cat) => (
+    <section id={cat.id} class="bg-black py-24 border-b border-white/5">
+      <div class="w-full max-w-[1600px] mx-auto px-10">
+
+        <!-- Section header with blue accent bar -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
+          <div class="border-l-4 border-blue-600 pl-6">
+            <p class="text-zinc-500 text-xs uppercase tracking-[3px] mb-2">{cat.title}</p>
+            <h2 class="text-white text-4xl lg:text-5xl font-bold leading-tight">
+              {cat.title} projects.
+            </h2>
+          </div>
+
+          <a
+            href={`/services/${cat.slug}`}
+            class="self-start lg:self-auto bg-blue-600 hover:bg-blue-700 text-white
+                   px-6 py-3 text-xs font-bold uppercase tracking-[1px]
+                   no-underline rounded-none transition-colors duration-300"
+          >About This Service →</a>
+        </div>
+
+        <!-- Photo grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
+          {cat.items.map((item) => (
+            <div class="group relative bg-zinc-950 overflow-hidden aspect-[4/3] cursor-pointer">
+              <!-- Placeholder background -->
+              <div class="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-950 group-hover:from-zinc-700 transition-all duration-500"></div>
+
+              <!-- Hover overlay -->
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 flex items-end p-6">
+                <span
+                  class="text-white text-xs font-bold uppercase tracking-[2px]
+                         opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0
+                         transition-all duration-300"
+                >{item}</span>
+              </div>
+
+              <!-- Corner accent -->
+              <div class="absolute top-4 right-4 w-5 h-5 border-t border-r border-blue-600/0 group-hover:border-blue-600/60 transition-all duration-300"></div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  ))}
+
+  <!-- Bottom CTA -->
+  <section class="bg-zinc-950 py-20">
+    <div class="w-full max-w-[1600px] mx-auto px-10 text-center">
+      <p class="text-zinc-500 text-xs uppercase tracking-[3px] mb-4">Ready to start?</p>
+      <h2 class="text-white text-4xl font-bold uppercase tracking-tight mb-8">Your vehicle is next.</h2>
+      <a
+        href="/contact"
+        class="inline-block bg-blue-600 hover:bg-blue-700 text-white
+               px-10 py-4 text-sm font-bold uppercase tracking-[2px]
+               no-underline rounded-none transition-colors duration-300"
+      >Request a Quote</a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

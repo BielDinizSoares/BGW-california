@@ -1,111 +1,69 @@
 ---
-
 ---
 
-<section class="hero-section">
-    <div class="video-container">
-        <video autoplay muted loop playsinline>
-            <source src="/video-hero.mp4" type="video/mp4">
-        </video>
-        <div class="overlay"></div>
+<section class="relative min-h-screen flex items-center bg-zinc-950 overflow-hidden">
+
+  <!-- Background layered gradients for depth -->
+  <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_50%,rgba(37,99,235,0.07),transparent)]"></div>
+
+  <!-- Subtle grid texture -->
+  <div
+    class="absolute inset-0 opacity-[0.04]"
+    style="background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 60px 60px;"
+  ></div>
+
+  <!-- Content -->
+  <div class="relative z-10 w-full max-w-[1600px] mx-auto px-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-32 pt-48">
+
+    <!-- Left: Copy -->
+    <div class="flex flex-col">
+      <p class="text-blue-600 text-xs font-bold uppercase tracking-[4px] mb-5">
+        Premium Automotive Finishing
+      </p>
+
+      <h1 class="text-white text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] tracking-tight uppercase mb-6">
+        Car Wrapping<br />in California
+      </h1>
+
+      <p class="text-zinc-400 text-lg leading-relaxed max-w-[480px] mb-10">
+        Transform your vehicle with precision vinyl wraps, paint protection films,
+        and premium coatings. Crafted for perfectionists on California roads.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <a
+          href="/contact"
+          class="bg-blue-600 hover:bg-blue-700 text-white
+                 px-8 py-4 uppercase font-bold text-sm tracking-[1px]
+                 transition-colors duration-300 rounded-none inline-block"
+        >Request a Quote</a>
+
+        <a
+          href="#services"
+          class="border border-white/30 text-white hover:border-white/70 hover:bg-white/5
+                 px-8 py-4 uppercase font-bold text-sm tracking-[1px]
+                 transition-all duration-300 rounded-none inline-block"
+        >Our Services</a>
+      </div>
+
     </div>
 
-    <div class="hero-content">
-        <h1>WE ARE BGW CALIFORNIA</h1>
-        <p>Customization and Aesthetics: Allows quick and economical changes in the appearance of vehicles and objects, offering a variety of colors and finishes.</p>
-        <a href="#" class="btn-more">MORE</a>
+    <!-- Right: Reserved for 3D model -->
+    <div class="hidden lg:flex items-center justify-center">
+      <!-- Placeholder area for 3D model integration -->
+      <div class="w-full aspect-square max-w-[560px] relative">
+        <!-- Corner marks — luxury feel -->
+        <div class="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-blue-600/40"></div>
+        <div class="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-blue-600/40"></div>
+        <div class="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-blue-600/40"></div>
+        <div class="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-blue-600/40"></div>
+      </div>
     </div>
+
+  </div>
+
+  <!-- Bottom fade into next section -->
+  <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
+
 </section>
-
-<style>
-    .hero-section {
-        position: relative;
-        width: 100%;
-        height: 80vh; 
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        background-color: black;
-    }
-
-    .video-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-    }
-
-    video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
-        z-index: 1;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-        max-width: 1600px;
-        margin: 0 auto;
-        padding: 0 40px;
-        width: 100%;
-        color: white;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    h1 {
-        font-size: 4rem;
-        font-weight: 400;
-        margin-bottom: 20px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        max-width: 800px;
-        line-height: 1.1;
-    }
-
-    p {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        margin-bottom: 40px;
-        max-width: 600px;
-        color: #ddd;
-    }
-
-    .btn-more {
-        display: inline-block;
-        padding: 12px 40px;
-        border: 2px solid white;
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        letter-spacing: 2px;
-        font-size: 14px;
-        transition: all 0.3s ease;
-    }
-
-    .btn-more:hover {
-        background-color: white;
-        color: black;
-    }
-
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 2.5rem;
-        }
-        
-        .hero-section {
-            height: 60vh;
-        }
-    }
-</style>

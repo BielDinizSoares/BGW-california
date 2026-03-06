@@ -1,0 +1,80 @@
+---
+import ServicePageLayout from "../../components/ServicePageLayout.astro";
+import heroImage from "../../assets/services/window-tint-hero.png";
+import showcaseImage from "../../assets/services/window-tint-showcase.png";
+import hl1Image from "../../assets/services/window-tint-hl1.png";
+import hl2Image from "../../assets/services/window-tint-hl2.png";
+import hl3Image from "../../assets/services/window-tint-hl3.png";
+import plastiHero from "../../assets/services/plasti-dip-hero.png";
+import ppfHero from "../../assets/services/paint-protection-hero.png";
+import vinylHero from "../../assets/services/vinyl-wrap-hero.png";
+
+const highlights = [
+  {
+    title: "Superior Heat Rejection",
+    description:
+      "Ceramic and carbon films reject up to 60% of solar heat, keeping your interior cool even under the California sun. Less AC means better fuel economy.",
+    image: hl1Image,
+  },
+  {
+    title: "99% UV Protection",
+    description:
+      "Block virtually all harmful UV radiation — protecting your skin, preventing interior fading, and extending the life of your leather and trim.",
+    image: hl2Image,
+  },
+  {
+    title: "Enhanced Privacy",
+    description:
+      "Reduce visibility into your cabin for improved security and a sleek, premium aesthetic. Multiple shade levels available to match your preference.",
+    image: hl3Image,
+  },
+];
+
+const specs = [
+  { label: "UV Block", value: "Up to 99%", icon: "sun" },
+  { label: "Heat Rejection", value: "Up to 60%", icon: "fire" },
+  { label: "Film Types", value: "Ceramic, Carbon, Dyed", icon: "cube" },
+  { label: "Warranty", value: "Lifetime", icon: "shield" },
+  {
+    label: "California Legal",
+    value: "Yes — all installations compliant",
+    icon: "check",
+  },
+  { label: "Shade Levels", value: "5% – 70% VLT", icon: "eye" },
+  { label: "Brand", value: "XPEL / 3M / LLumar", icon: "tag" },
+];
+
+const siblings = [
+  {
+    title: "Plasti Dip",
+    slug: "plasti-dip",
+    tagline: "Removable & Versatile",
+    image: plastiHero,
+  },
+  {
+    title: "Paint Protection Film",
+    slug: "paint-protection",
+    tagline: "Invisible Armor",
+    image: ppfHero,
+  },
+  {
+    title: "Vinyl Wrap",
+    slug: "vinyl-wrap",
+    tagline: "Total Transformation",
+    image: vinylHero,
+  },
+];
+---
+
+<ServicePageLayout
+  name="Window Tint"
+  slug="window-tint"
+  tagline="Privacy & Performance"
+  headline="See the road, not the heat."
+  description="Our premium window tinting service uses advanced ceramic and carbon films to deliver the ultimate combination of heat rejection, UV protection, and visual refinement. Every installation is precision-cut using computer-aided templates for a seamless, bubble-free finish that looks factory-original. We ensure full compliance with California's tinting regulations, so you drive confidently knowing your tint is both legal and effective. Whether you want maximum privacy, cooler interiors, or simply a cleaner aesthetic — our ceramic tint delivers on all fronts."
+  heroImage={heroImage}
+  showcaseImage={showcaseImage}
+  highlights={highlights}
+  specs={specs}
+  siblings={siblings}
+/>

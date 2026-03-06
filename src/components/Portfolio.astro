@@ -1,0 +1,86 @@
+---
+// Homepage portfolio highlights — one featured item per service
+const highlights = [
+  {
+    service: "Vinyl Wrap",
+    label: "Matte Black Full Body Wrap",
+    slug: "vinyl-wrap",
+    span: "lg:col-span-2 lg:row-span-2",
+  },
+  {
+    service: "Paint Protection",
+    label: "Full Front PPF — Tesla Model 3",
+    slug: "paint-protection",
+    span: "",
+  },
+  {
+    service: "Plasti Dip",
+    label: "Gunmetal Plasti Dip — Full Body",
+    slug: "plasti-dip",
+    span: "",
+  },
+  {
+    service: "Window Tint",
+    label: "Ceramic 20% — BMW X5",
+    slug: "window-tint",
+    span: "lg:col-span-2",
+  },
+];
+---
+
+<section id="portfolio" class="bg-zinc-950 py-28">
+  <div class="w-full max-w-[1600px] mx-auto px-10">
+
+    <!-- Section Header -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
+      <div>
+        <p class="text-blue-600 text-xs font-bold uppercase tracking-[4px] mb-4">Our Work</p>
+        <h2 class="text-white text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight">
+          Portfolio
+        </h2>
+      </div>
+      <a
+        href="/portfolio"
+        class="self-start lg:self-auto border border-white/20 text-white hover:border-white/50 hover:bg-white/5
+               px-6 py-3 uppercase font-bold text-xs tracking-[2px]
+               transition-all duration-300 rounded-none no-underline"
+      >View Full Portfolio →</a>
+    </div>
+
+    <!-- Highlights Grid — one featured item per service -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-px bg-zinc-800 auto-rows-[280px]">
+      {highlights.map((item) => (
+        <a
+          href={`/portfolio#${item.slug}`}
+          class={`group relative bg-zinc-900 overflow-hidden cursor-pointer no-underline ${item.span}`}
+        >
+          <!-- Placeholder background -->
+          <div class="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-950 group-hover:from-zinc-700 transition-all duration-500"></div>
+
+          <!-- Hover overlay with labels -->
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300 flex flex-col items-start justify-end p-6">
+            <span
+              class="text-blue-500 text-[10px] font-bold uppercase tracking-[3px] mb-1
+                     opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0
+                     transition-all duration-300"
+            >{item.service}</span>
+            <span
+              class="text-white text-xs font-bold uppercase tracking-[2px]
+                     opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0
+                     transition-all duration-300 delay-75"
+            >{item.label}</span>
+          </div>
+
+          <!-- Corner accent -->
+          <div class="absolute top-4 right-4 w-6 h-6 border-t border-r border-blue-600/0 group-hover:border-blue-600/60 transition-all duration-300"></div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Bottom note -->
+    <p class="text-zinc-600 text-xs uppercase tracking-[2px] text-center mt-10">
+      Showing featured projects — <a href="/portfolio" class="text-blue-600 hover:text-blue-500 no-underline transition-colors">browse all</a>
+    </p>
+
+  </div>
+</section>

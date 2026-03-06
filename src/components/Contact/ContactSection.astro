@@ -1,0 +1,31 @@
+---
+import ContactForm from './ContactForm.astro';
+---
+
+<section id="contact" class="bg-black">
+  <div class="flex flex-col lg:flex-row min-h-screen">
+
+    <!-- Left: Image -->
+    <div class="lg:w-[55%] relative overflow-hidden min-h-[40vh] lg:min-h-screen">
+      <img
+        src="/imagem-form.webp"
+        alt="Car detailing service"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <!-- Dark overlay with side gradient for blend -->
+      <div class="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/60"></div>
+
+      <!-- Caption overlay -->
+      <div class="absolute bottom-10 left-10 right-10 hidden lg:block">
+        <p class="text-white/40 text-xs uppercase tracking-[3px]">BGW California</p>
+        <p class="text-white text-lg font-bold uppercase tracking-wide mt-1">Precision. Quality. Detail.</p>
+      </div>
+    </div>
+
+    <!-- Right: Form -->
+    <div class="lg:w-[45%] flex items-center justify-center px-8 py-20 lg:py-0 bg-black">
+      <ContactForm />
+    </div>
+
+  </div>
+</section>
