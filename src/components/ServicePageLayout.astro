@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Navbar from './Navbar.astro';
 import Footer from './Footer.astro';
@@ -70,9 +71,12 @@ const briefSummary = description.length > 180 ? description.substring(0, 180).tr
     <!-- Full-width hero image as background -->
     {heroImage ? (
       <div class="absolute inset-0">
-        <img
-          src={heroImage.src}
+        <Image
+          src={heroImage}
           alt={`${name} — BGW California`}
+          width={1600}
+          format="webp"
+          quality={80}
           class="w-full h-full object-cover scale-110 opacity-60"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-zinc-950/50"></div>
@@ -132,9 +136,13 @@ const briefSummary = description.length > 180 ? description.substring(0, 180).tr
             <div class="aspect-[4/3] relative overflow-hidden">
               {item.image ? (
                 <>
-                  <img
-                    src={item.image.src}
+                  <Image
+                    src={item.image}
                     alt={item.title}
+                    width={600}
+                    format="webp"
+                    quality={80}
+                    loading="lazy"
                     class="w-full h-full object-cover scale-110 group-hover:scale-[1.15] transition-transform duration-700"
                   />
                   <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent"></div>
@@ -168,9 +176,13 @@ const briefSummary = description.length > 180 ? description.substring(0, 180).tr
         <div class="w-full lg:w-1/2 relative overflow-hidden rounded-sm aspect-[4/3] border border-white/5">
           {showcaseImage ? (
             <>
-              <img
-                src={showcaseImage.src}
+              <Image
+                src={showcaseImage}
                 alt={`${name} overview — BGW California`}
+                width={800}
+                format="webp"
+                quality={80}
+                loading="lazy"
                 class="absolute inset-0 w-full h-full object-cover scale-110"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/30 via-transparent to-transparent"></div>
@@ -307,9 +319,13 @@ const briefSummary = description.length > 180 ? description.substring(0, 180).tr
             <div class="aspect-[16/10] relative overflow-hidden">
               {svc.image ? (
                 <>
-                  <img
-                    src={svc.image.src}
+                  <Image
+                    src={svc.image}
                     alt={svc.title}
+                    width={500}
+                    format="webp"
+                    quality={80}
+                    loading="lazy"
                     class="w-full h-full object-cover scale-110 group-hover:scale-[1.15] transition-transform duration-700"
                   />
                   <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/60 via-transparent to-transparent"></div>

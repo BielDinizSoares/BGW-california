@@ -78,33 +78,45 @@ const wrapColors = [
     <div class="flex flex-col items-center justify-center">
       <!-- Fixed-size container — no CLS -->
       <div class="w-full max-w-[700px] relative" style="aspect-ratio: 4/3;">
-        <!-- Skeleton loader -->
+        <!-- Skeleton loader with car silhouette -->
         <div
           id="model-skeleton"
-          class="absolute inset-0 flex items-center justify-center bg-zinc-900/30 rounded-sm animate-pulse z-10"
+          class="absolute inset-0 flex items-center justify-center bg-zinc-900/30 rounded-sm z-10"
         >
-          <div class="flex flex-col items-center gap-3">
-            <svg
-              class="w-10 h-10 text-zinc-700 animate-spin"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="2"></circle>
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
+          <div class="flex flex-col items-center gap-4 w-full">
+            <!-- Car silhouette placeholder -->
+            <svg class="w-[65%] max-w-[400px] h-auto text-zinc-800/50" viewBox="0 0 800 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M100 220 C100 220 130 218 160 205 C190 192 230 140 280 118 C330 96 390 86 440 84 C490 82 570 86 620 98 C660 108 685 130 700 158 C715 186 730 205 755 210 L770 215 L770 238 L720 238 C718 238 712 200 680 198 C648 196 642 238 640 238 L230 238 C228 238 222 200 190 198 C158 196 152 238 150 238 L100 238 Z" fill="currentColor"/>
+              <circle cx="190" cy="238" r="30" fill="currentColor" opacity="0.7"/>
+              <circle cx="190" cy="238" r="15" fill="#09090b"/>
+              <circle cx="680" cy="238" r="30" fill="currentColor" opacity="0.7"/>
+              <circle cx="680" cy="238" r="15" fill="#09090b"/>
+              <path d="M300 118 C300 118 340 92 430 86 C520 80 590 92 620 106 L628 110 L616 118 Z" fill="currentColor" opacity="0.25"/>
             </svg>
-            <span class="text-zinc-600 text-[10px] uppercase tracking-[2px]"
-              >Loading 3D Model</span
-            >
+            <!-- Loading indicator -->
+            <div class="flex items-center gap-2">
+              <svg
+                class="w-4 h-4 text-zinc-700 animate-spin"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="2"></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <span class="text-zinc-600 text-[10px] uppercase tracking-[2px]"
+                >Loading 3D Model</span
+              >
+            </div>
           </div>
         </div>
 
@@ -125,7 +137,7 @@ const wrapColors = [
           max-camera-orbit="auto 70deg 75%"
           loading="eager"
           reveal="auto"
-          poster="/car-poster.webp"
+          poster=""
           touch-action="none"
           style="width: 100%; height: 100%; --poster-color: transparent; opacity: 0; transition: opacity 0.5s ease; cursor: default; pointer-events: none;"
         />
@@ -218,11 +230,21 @@ const wrapColors = [
   </div>
 </section>
 
-<!-- model-viewer script -->
-<script
-  type="module"
-  src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"
-></script>
+<!-- model-viewer script — deferred to avoid blocking FCP/LCP -->
+<script is:inline>
+  // Load model-viewer after first paint
+  function _loadMV() {
+    var s = document.createElement('script');
+    s.type = 'module';
+    s.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js';
+    document.head.appendChild(s);
+  }
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(_loadMV);
+  } else {
+    setTimeout(_loadMV, 200);
+  }
+</script>
 
 <script>
   function initCarViewer() {
