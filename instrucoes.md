@@ -21,11 +21,3 @@ Pesos: Use apenas Regular (400) para textos corridos e descrições, e Bold (700
 
 Contraste de Texto: Títulos devem ser muito contrastantes (Branco puro no fundo preto, Preto puro no fundo branco). Textos de apoio devem usar cinzas (ex: text-zinc-400).
 
-Fotos de referencia:
-![alt text](image.png)
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-6.png)
-![alt text](image-7.png)

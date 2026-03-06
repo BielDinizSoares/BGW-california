@@ -1,69 +1,361 @@
 ---
+// Color presets for wraps
+// swatch = CSS hex for the UI squares
+// pbr   = linear RGB [0-1] for model-viewer PBR rendering
+const wrapColors = [
+  { name: "Metallic Blue",  swatch: "#1436a0", pbr: [0.08, 0.18, 0.55], finish: "gloss" },
+  { name: "Graphite",       swatch: "#3a3a3a", pbr: [0.20, 0.20, 0.20], finish: "gloss" },
+  { name: "Midnight Black", swatch: "#0d0d0d", pbr: [0.05, 0.05, 0.05], finish: "gloss" },
+  { name: "Military Green", swatch: "#2e381f", pbr: [0.18, 0.22, 0.12], finish: "matte" },
+  { name: "Royal Purple",   swatch: "#470f73", pbr: [0.28, 0.06, 0.45], finish: "gloss" },
+];
 ---
 
-<section class="relative min-h-screen flex items-center bg-zinc-950 overflow-hidden">
-
+<section
+  class="relative min-h-screen flex items-center bg-zinc-950 overflow-hidden"
+>
   <!-- Background layered gradients for depth -->
-  <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black"></div>
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_50%,rgba(37,99,235,0.07),transparent)]"></div>
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black"
+  >
+  </div>
+  <div
+    class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_50%,rgba(37,99,235,0.07),transparent)]"
+  >
+  </div>
 
   <!-- Subtle grid texture -->
   <div
     class="absolute inset-0 opacity-[0.04]"
     style="background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 60px 60px;"
-  ></div>
+  >
+  </div>
 
   <!-- Content -->
-  <div class="relative z-10 w-full max-w-[1600px] mx-auto px-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-32 pt-48">
-
+  <div
+    class="relative z-10 w-full max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center py-24 sm:py-32 pt-32 sm:pt-48"
+  >
     <!-- Left: Copy -->
-    <div class="flex flex-col">
+    <div
+      class="flex flex-col items-center lg:items-start text-center lg:text-left"
+    >
       <p class="text-blue-600 text-xs font-bold uppercase tracking-[4px] mb-5">
         Premium Automotive Finishing
       </p>
 
-      <h1 class="text-white text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] tracking-tight uppercase mb-6">
+      <h1
+        class="text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] tracking-tight uppercase mb-6"
+      >
         Car Wrapping<br />in California
       </h1>
 
-      <p class="text-zinc-400 text-lg leading-relaxed max-w-[480px] mb-10">
-        Transform your vehicle with precision vinyl wraps, paint protection films,
-        and premium coatings. Crafted for perfectionists on California roads.
+      <p
+        class="text-zinc-400 text-base sm:text-lg leading-relaxed max-w-[480px] mb-8 sm:mb-10"
+      >
+        Transform your vehicle with precision vinyl wraps, paint protection
+        films, and premium coatings. Crafted for perfectionists on California
+        roads.
       </p>
 
-      <div class="flex flex-wrap items-center gap-4">
+      <div
+        class="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4"
+      >
         <a
           href="/contact"
-          class="bg-blue-600 hover:bg-blue-700 text-white
-                 px-8 py-4 uppercase font-bold text-sm tracking-[1px]
-                 transition-colors duration-300 rounded-none inline-block"
-        >Request a Quote</a>
+          class="bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3.5 sm:py-4 uppercase font-bold text-xs sm:text-sm tracking-[1px] transition-colors duration-300 rounded-none inline-block no-underline"
+          >Request a Quote</a
+        >
 
         <a
           href="#services"
-          class="border border-white/30 text-white hover:border-white/70 hover:bg-white/5
-                 px-8 py-4 uppercase font-bold text-sm tracking-[1px]
-                 transition-all duration-300 rounded-none inline-block"
-        >Our Services</a>
-      </div>
-
-    </div>
-
-    <!-- Right: Reserved for 3D model -->
-    <div class="hidden lg:flex items-center justify-center">
-      <!-- Placeholder area for 3D model integration -->
-      <div class="w-full aspect-square max-w-[560px] relative">
-        <!-- Corner marks — luxury feel -->
-        <div class="absolute top-0 left-0 w-10 h-10 border-t-2 border-l-2 border-blue-600/40"></div>
-        <div class="absolute top-0 right-0 w-10 h-10 border-t-2 border-r-2 border-blue-600/40"></div>
-        <div class="absolute bottom-0 left-0 w-10 h-10 border-b-2 border-l-2 border-blue-600/40"></div>
-        <div class="absolute bottom-0 right-0 w-10 h-10 border-b-2 border-r-2 border-blue-600/40"></div>
+          class="border border-white/30 text-white hover:border-white/70 hover:bg-white/5 px-6 sm:px-8 py-3.5 sm:py-4 uppercase font-bold text-xs sm:text-sm tracking-[1px] transition-all duration-300 rounded-none inline-block no-underline"
+          >Our Services</a
+        >
       </div>
     </div>
 
+    <!-- Right: 3D Car Model (Desktop) / Auto-rotate only (Mobile) -->
+    <div class="flex flex-col items-center justify-center">
+      <!-- Fixed-size container — no CLS -->
+      <div class="w-full max-w-[700px] relative" style="aspect-ratio: 4/3;">
+        <!-- Skeleton loader -->
+        <div
+          id="model-skeleton"
+          class="absolute inset-0 flex items-center justify-center bg-zinc-900/30 rounded-sm animate-pulse z-10"
+        >
+          <div class="flex flex-col items-center gap-3">
+            <svg
+              class="w-10 h-10 text-zinc-700 animate-spin"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="2"></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            <span class="text-zinc-600 text-[10px] uppercase tracking-[2px]"
+              >Loading 3D Model</span
+            >
+          </div>
+        </div>
+
+        <!-- model-viewer: NO camera-controls, NO zoom, NO interaction prompt -->
+        <model-viewer
+          id="car-viewer"
+          src="/car-model.glb"
+          alt="3D Car Model — BGW California"
+          auto-rotate
+          auto-rotate-delay="0"
+          rotation-per-second="8deg"
+          interaction-prompt="none"
+          disable-zoom
+          shadow-intensity="0.6"
+          exposure="0.8"
+          camera-orbit="30deg 70deg 75%"
+          min-camera-orbit="auto 70deg 75%"
+          max-camera-orbit="auto 70deg 75%"
+          loading="eager"
+          reveal="auto"
+          poster="/car-poster.webp"
+          touch-action="none"
+          style="width: 100%; height: 100%; --poster-color: transparent; opacity: 0; transition: opacity 0.5s ease; cursor: default; pointer-events: none;"
+        />
+      </div>
+
+      <!-- Controls row: arrows + color swatches -->
+      <div
+        class="flex items-center justify-between w-full max-w-[700px] mt-4 sm:mt-6"
+      >
+        <!-- Left/Right rotation arrows (Desktop only) -->
+        <div class="hidden lg:flex items-center gap-2">
+          <button
+            id="rotate-left"
+            class="w-9 h-9 flex items-center justify-center border border-white/10 hover:border-white/30 hover:bg-white/5 text-zinc-400 hover:text-white transition-all duration-200 rounded-sm cursor-pointer"
+            aria-label="Rotate left"
+            title="Rotate left"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+            </svg>
+          </button>
+          <button
+            id="rotate-right"
+            class="w-9 h-9 flex items-center justify-center border border-white/10 hover:border-white/30 hover:bg-white/5 text-zinc-400 hover:text-white transition-all duration-200 rounded-sm cursor-pointer"
+            aria-label="Rotate right"
+            title="Rotate right"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Color swatches -->
+        <div class="flex items-center gap-2 sm:gap-3 mx-auto lg:mx-0">
+          <span
+            class="text-zinc-600 text-[10px] uppercase tracking-[2px] mr-1 hidden sm:inline"
+            >Wrap</span
+          >
+          {
+            wrapColors.map((wrap, i) => (
+              <button
+                class={`color-swatch w-7 h-7 sm:w-8 sm:h-8 rounded-sm border-2 transition-all duration-300 cursor-pointer hover:scale-110 ${
+                  i === 0
+                    ? "border-blue-500 scale-110"
+                    : "border-white/10 hover:border-white/30"
+                }`}
+                style={`background-color: ${wrap.swatch}`}
+                data-color={JSON.stringify(wrap.pbr)}
+                data-finish={wrap.finish}
+                data-name={wrap.name}
+                title={wrap.name}
+                aria-label={`Change color to ${wrap.name}`}
+              />
+            ))
+          }
+        </div>
+      </div>
+      <p
+        id="color-label"
+        class="text-zinc-500 text-[10px] sm:text-xs uppercase tracking-[2px] mt-2"
+      >
+        Metallic Blue
+      </p>
+    </div>
   </div>
 
   <!-- Bottom fade into next section -->
-  <div class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
-
+  <div
+    class="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent pointer-events-none"
+  >
+  </div>
 </section>
+
+<!-- model-viewer script -->
+<script
+  type="module"
+  src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"
+></script>
+
+<script>
+  function initCarViewer() {
+    const viewer = document.getElementById("car-viewer");
+    const skeleton = document.getElementById("model-skeleton");
+    const swatches = document.querySelectorAll(".color-swatch");
+    const colorLabel = document.getElementById("color-label");
+    const rotateLeft = document.getElementById("rotate-left");
+    const rotateRight = document.getElementById("rotate-right");
+
+    if (!viewer) return;
+
+    let currentOrbitDeg = 30; // starting orbit angle
+
+    // Show model when loaded
+    viewer.addEventListener("load", () => {
+      viewer.style.opacity = "1";
+      if (skeleton) skeleton.style.display = "none";
+
+      const model = viewer.model;
+      if (model) {
+        console.log(
+          "Car materials:",
+          model.materials.map((m) => m.name)
+        );
+        applyColor([0.08, 0.18, 0.55], "gloss");
+      }
+    });
+
+    // Rotation buttons — step 30deg each click, pause auto-rotate briefly
+    function rotateBy(deg) {
+      const orbitStr = viewer.getCameraOrbit().toString();
+      // Parse current theta from orbit
+      currentOrbitDeg += deg;
+      viewer.autoRotate = false;
+      viewer.cameraOrbit = `${currentOrbitDeg}deg 70deg 75%`;
+
+      // Resume auto-rotate after 3 seconds
+      clearTimeout(viewer._resumeTimer);
+      viewer._resumeTimer = setTimeout(() => {
+        viewer.autoRotate = true;
+      }, 3000);
+    }
+
+    if (rotateLeft) {
+      rotateLeft.addEventListener("click", () => rotateBy(-30));
+    }
+    if (rotateRight) {
+      rotateRight.addEventListener("click", () => rotateBy(30));
+    }
+
+    // Color application
+    function applyColor(rgb, finish) {
+      const model = viewer.model;
+      if (!model) return;
+
+      const roughness =
+        finish === "matte" ? 0.8 : finish === "satin" ? 0.5 : 0.2;
+      const metalness = 0.6;
+
+      // Materials to NEVER touch
+      const skip = [
+        "glass", "vidro", "window",
+        "rubber", "tire", "pneu",
+        "chrome", "steel",
+        "light", "lamp", "led",
+        "wheel", "rim", "roda", "spoke", "alloy", "hubcap",
+        "interior", "seat", "banco", "dashboard", "painel",
+        "logo", "emblem", "badge",
+        "grille", "grill", "grade",
+        "mirror", "espelho",
+        "brake", "caliper", "freio",
+        "lens", "headlight", "taillight",
+        "bumper", "exhaust", "muffler",
+        "plastic", "carbon", "fiber",
+        "decal", "sticker",
+      ];
+
+      // Body panel keywords — only these get texture cleared
+      const bodyKeywords = [
+        "body", "paint", "car", "panel", "hood", "door",
+        "fender", "trunk", "roof", "quarter", "carroceria",
+        "pintura", "capo", "porta", "lateral", "chassis",
+        "bonnet", "wrap", "skin", "shell", "exterior",
+      ];
+
+      model.materials.forEach((mat) => {
+        const name = (mat.name || "").toLowerCase();
+
+        if (skip.some((s) => name.includes(s))) return;
+
+        const pbr = mat.pbrMetallicRoughness;
+        const isBody = bodyKeywords.some((k) => name.includes(k));
+
+        // Only clear textures on body panel materials
+        // so wheels/trim keep their original look
+        if (isBody) {
+          const texInfo = pbr.baseColorTexture;
+          if (texInfo && texInfo.setTexture) {
+            texInfo.setTexture(null);
+          }
+        }
+
+        pbr.setBaseColorFactor([rgb[0], rgb[1], rgb[2], 1]);
+        pbr.setRoughnessFactor(roughness);
+        pbr.setMetallicFactor(metalness);
+      });
+    }
+
+    // Swatch handlers
+    swatches.forEach((swatch) => {
+      swatch.addEventListener("click", () => {
+        const color = JSON.parse(swatch.dataset.color);
+        const finish = swatch.dataset.finish;
+        const name = swatch.dataset.name;
+
+        applyColor(color, finish);
+
+        swatches.forEach((s) => {
+          s.classList.remove("border-blue-500", "scale-110");
+          s.classList.add("border-white/10");
+        });
+        swatch.classList.remove("border-white/10");
+        swatch.classList.add("border-blue-500", "scale-110");
+
+        if (colorLabel) colorLabel.textContent = name;
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCarViewer);
+  } else {
+    initCarViewer();
+  }
+</script>

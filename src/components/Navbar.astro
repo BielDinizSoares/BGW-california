@@ -5,7 +5,7 @@ import logo from "../assets/BGW-logo.webp";
 <nav
   id="navbar"
   data-scrolled="false"
-  class="group/nav fixed top-0 left-0 w-full h-[80px] z-[200] flex items-center"
+  class="group/nav fixed top-0 left-0 w-full h-[70px] sm:h-[80px] z-[200] flex items-center"
 >
   <!-- Dark background — hidden at top, visible on scroll -->
   <div
@@ -14,29 +14,29 @@ import logo from "../assets/BGW-logo.webp";
   </div>
 
   <div
-    class="relative z-10 w-full max-w-[1600px] mx-auto px-10 flex justify-between items-center h-full"
+    class="relative z-10 w-full max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-10 flex justify-between items-center h-full"
   >
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-3 no-underline">
+    <a href="/" class="flex items-center gap-2 sm:gap-3 no-underline">
       <img
         src={logo.src}
         alt="BGW California Logo"
-        class="h-[55px] w-auto block transition-all duration-300"
+        class="h-[40px] sm:h-[55px] w-auto block transition-all duration-300"
       />
       <div class="flex flex-col">
         <span
-          class="text-white text-[24px] font-bold leading-none tracking-wide"
+          class="text-white text-[20px] sm:text-[24px] font-bold leading-none tracking-wide"
           >BGW</span
         >
         <span
-          class="text-white/70 text-[11px] font-normal tracking-[2px] uppercase"
+          class="text-white/70 text-[9px] sm:text-[11px] font-normal tracking-[2px] uppercase"
           >California</span
         >
       </div>
     </a>
 
-    <!-- Navigation links -->
-    <ul class="flex items-center gap-8 list-none m-0 p-0 h-full">
+    <!-- Desktop Navigation links -->
+    <ul class="hidden lg:flex items-center gap-8 list-none m-0 p-0 h-full">
       <!-- Home -->
       <li class="relative h-full flex items-center">
         <a
@@ -112,10 +112,78 @@ import logo from "../assets/BGW-logo.webp";
         >
       </li>
     </ul>
+
+    <!-- Mobile hamburger button -->
+    <button
+      id="mobile-menu-btn"
+      class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 cursor-pointer"
+      aria-label="Toggle menu"
+    >
+      <span
+        class="hamburger-line w-6 h-[2px] bg-white transition-all duration-300 origin-center"
+      ></span>
+      <span
+        class="hamburger-line w-6 h-[2px] bg-white transition-all duration-300 origin-center"
+      ></span>
+      <span
+        class="hamburger-line w-4 h-[2px] bg-white transition-all duration-300 origin-center ml-auto"
+      ></span>
+    </button>
   </div>
 </nav>
 
+<!-- Mobile menu overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-[190] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-1 opacity-0 invisible transition-all duration-300"
+>
+  <a
+    href="/"
+    class="text-white text-xl font-bold uppercase tracking-[2px] py-4 no-underline hover:text-blue-500 transition-colors"
+    >Home</a
+  >
+
+  <div class="flex flex-col items-center">
+    <span class="text-zinc-500 text-[10px] uppercase tracking-[3px] mb-2"
+      >Services</span
+    >
+    <a
+      href="/services/plasti-dip"
+      class="text-zinc-300 text-sm uppercase tracking-[1px] py-2 no-underline hover:text-white transition-colors"
+      >Plasti Dip</a
+    >
+    <a
+      href="/services/paint-protection"
+      class="text-zinc-300 text-sm uppercase tracking-[1px] py-2 no-underline hover:text-white transition-colors"
+      >Paint Protection</a
+    >
+    <a
+      href="/services/vinyl-wrap"
+      class="text-zinc-300 text-sm uppercase tracking-[1px] py-2 no-underline hover:text-white transition-colors"
+      >Vinyl Wrap</a
+    >
+    <a
+      href="/services/window-tint"
+      class="text-zinc-300 text-sm uppercase tracking-[1px] py-2 no-underline hover:text-white transition-colors"
+      >Window Tint</a
+    >
+  </div>
+
+  <a
+    href="/portfolio"
+    class="text-white text-xl font-bold uppercase tracking-[2px] py-4 no-underline hover:text-blue-500 transition-colors mt-2"
+    >Gallery</a
+  >
+
+  <a
+    href="/contact"
+    class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 uppercase font-bold text-sm tracking-[1px] no-underline rounded-none transition-colors duration-300 mt-4"
+    >Contact Us</a
+  >
+</div>
+
 <script is:inline>
+  // Scroll effect
   const onScroll = () => {
     const nav = document.getElementById("navbar");
     if (!nav) return;
@@ -125,5 +193,73 @@ import logo from "../assets/BGW-logo.webp";
   document.addEventListener("DOMContentLoaded", () => {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+
+    // Mobile menu toggle
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    const lines = btn ? btn.querySelectorAll(".hamburger-line") : [];
+
+    let isOpen = false;
+
+    if (btn && menu) {
+      btn.addEventListener("click", () => {
+        isOpen = !isOpen;
+
+        if (isOpen) {
+          menu.classList.remove("opacity-0", "invisible");
+          menu.classList.add("opacity-100", "visible");
+          document.body.style.overflow = "hidden";
+          // Animate to X
+          if (lines[0]) {
+            lines[0].style.transform = "rotate(45deg) translateY(5px)";
+            lines[0].style.width = "24px";
+          }
+          if (lines[1]) {
+            lines[1].style.opacity = "0";
+          }
+          if (lines[2]) {
+            lines[2].style.transform = "rotate(-45deg) translateY(-5px)";
+            lines[2].style.width = "24px";
+          }
+        } else {
+          menu.classList.add("opacity-0", "invisible");
+          menu.classList.remove("opacity-100", "visible");
+          document.body.style.overflow = "";
+          // Reset hamburger
+          if (lines[0]) {
+            lines[0].style.transform = "";
+            lines[0].style.width = "";
+          }
+          if (lines[1]) {
+            lines[1].style.opacity = "";
+          }
+          if (lines[2]) {
+            lines[2].style.transform = "";
+            lines[2].style.width = "";
+          }
+        }
+      });
+
+      // Close on link click
+      menu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          isOpen = false;
+          menu.classList.add("opacity-0", "invisible");
+          menu.classList.remove("opacity-100", "visible");
+          document.body.style.overflow = "";
+          if (lines[0]) {
+            lines[0].style.transform = "";
+            lines[0].style.width = "";
+          }
+          if (lines[1]) {
+            lines[1].style.opacity = "";
+          }
+          if (lines[2]) {
+            lines[2].style.transform = "";
+            lines[2].style.width = "";
+          }
+        });
+      });
+    }
   });
 </script>
