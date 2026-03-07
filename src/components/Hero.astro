@@ -1,7 +1,7 @@
 ---
-// Color presets for wraps
-// swatch = CSS hex for the UI squares
-// pbr   = linear RGB [0-1] for model-viewer PBR rendering
+import { Image } from 'astro:assets';
+import carPoster from '../assets/images/car.webp';
+
 const wrapColors = [
   { name: "Metallic Blue",  swatch: "#1436a0", pbr: [0.08, 0.18, 0.55], finish: "gloss" },
   { name: "Graphite",       swatch: "#3a3a3a", pbr: [0.20, 0.20, 0.20], finish: "gloss" },
@@ -39,7 +39,7 @@ const wrapColors = [
     <div
       class="flex flex-col items-center lg:items-start text-center lg:text-left"
     >
-      <p class="text-blue-600 text-xs font-bold uppercase tracking-[4px] mb-5">
+      <p class="text-blue-500 text-xs font-bold uppercase tracking-[4px] mb-5">
         Premium Automotive Finishing
       </p>
 
@@ -74,78 +74,32 @@ const wrapColors = [
       </div>
     </div>
 
-    <!-- Right: 3D Car Model (Desktop) / Auto-rotate only (Mobile) -->
+    <!-- Right: 3D Car Model (Desktop only) / Static image (Mobile) -->
     <div class="flex flex-col items-center justify-center">
       <!-- Fixed-size container — no CLS -->
-      <div class="w-full max-w-[700px] relative" style="aspect-ratio: 4/3;">
-        <!-- Skeleton loader with car silhouette -->
+      <div id="hero-model-container" class="w-full max-w-[700px] relative" style="aspect-ratio: 4/3;">
+
+        <!-- Car poster — shown while 3D loads (desktop) or always (mobile) -->
         <div
           id="model-skeleton"
-          class="absolute inset-0 flex items-center justify-center bg-zinc-900/30 rounded-sm z-10"
+          class="absolute inset-0 flex items-center justify-center z-10"
         >
-          <div class="flex flex-col items-center gap-4 w-full">
-            <!-- Car silhouette placeholder -->
-            <svg class="w-[65%] max-w-[400px] h-auto text-zinc-800/50" viewBox="0 0 800 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M100 220 C100 220 130 218 160 205 C190 192 230 140 280 118 C330 96 390 86 440 84 C490 82 570 86 620 98 C660 108 685 130 700 158 C715 186 730 205 755 210 L770 215 L770 238 L720 238 C718 238 712 200 680 198 C648 196 642 238 640 238 L230 238 C228 238 222 200 190 198 C158 196 152 238 150 238 L100 238 Z" fill="currentColor"/>
-              <circle cx="190" cy="238" r="30" fill="currentColor" opacity="0.7"/>
-              <circle cx="190" cy="238" r="15" fill="#09090b"/>
-              <circle cx="680" cy="238" r="30" fill="currentColor" opacity="0.7"/>
-              <circle cx="680" cy="238" r="15" fill="#09090b"/>
-              <path d="M300 118 C300 118 340 92 430 86 C520 80 590 92 620 106 L628 110 L616 118 Z" fill="currentColor" opacity="0.25"/>
-            </svg>
-            <!-- Loading indicator -->
-            <div class="flex items-center gap-2">
-              <svg
-                class="w-4 h-4 text-zinc-700 animate-spin"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  class="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  stroke-width="2"></circle>
-                <path
-                  class="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-              <span class="text-zinc-600 text-[10px] uppercase tracking-[2px]"
-                >Loading 3D Model</span
-              >
-            </div>
-          </div>
+          <Image
+            src={carPoster}
+            alt="Car preview"
+            width={700}
+            quality={80}
+            class="w-full h-full object-contain"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
-
-        <!-- model-viewer: NO camera-controls, NO zoom, NO interaction prompt -->
-        <model-viewer
-          id="car-viewer"
-          src="/car-model.glb"
-          alt="3D Car Model — BGW California"
-          auto-rotate
-          auto-rotate-delay="0"
-          rotation-per-second="8deg"
-          interaction-prompt="none"
-          disable-zoom
-          shadow-intensity="0.6"
-          exposure="0.8"
-          camera-orbit="30deg 70deg 75%"
-          min-camera-orbit="auto 70deg 75%"
-          max-camera-orbit="auto 70deg 75%"
-          loading="eager"
-          reveal="auto"
-          poster=""
-          touch-action="none"
-          style="width: 100%; height: 100%; --poster-color: transparent; opacity: 0; transition: opacity 0.5s ease; cursor: default; pointer-events: none;"
-        />
       </div>
 
-      <!-- Controls row: arrows + color swatches -->
+      <!-- Controls row: arrows + color swatches (hidden until 3D loads) -->
       <div
-        class="flex items-center justify-between w-full max-w-[700px] mt-4 sm:mt-6"
+        id="hero-controls"
+        class="flex items-center justify-between w-full max-w-[700px] mt-4 sm:mt-6 opacity-0 translate-y-2 transition-all duration-500 pointer-events-none"
       >
         <!-- Left/Right rotation arrows (Desktop only) -->
         <div class="hidden lg:flex items-center gap-2">
@@ -189,10 +143,10 @@ const wrapColors = [
           </button>
         </div>
 
-        <!-- Color swatches -->
+        <!-- Color swatches — only functional on desktop, decorative on mobile -->
         <div class="flex items-center gap-2 sm:gap-3 mx-auto lg:mx-0">
           <span
-            class="text-zinc-600 text-[10px] uppercase tracking-[2px] mr-1 hidden sm:inline"
+            class="text-zinc-500 text-[10px] uppercase tracking-[2px] mr-1 hidden sm:inline"
             >Wrap</span
           >
           {
@@ -216,7 +170,7 @@ const wrapColors = [
       </div>
       <p
         id="color-label"
-        class="text-zinc-500 text-[10px] sm:text-xs uppercase tracking-[2px] mt-2"
+        class="text-zinc-500 text-[10px] sm:text-xs uppercase tracking-[2px] mt-2 opacity-0 transition-opacity duration-500"
       >
         Metallic Blue
       </p>
@@ -230,154 +184,121 @@ const wrapColors = [
   </div>
 </section>
 
-<!-- model-viewer script — deferred to avoid blocking FCP/LCP -->
-<script is:inline>
-  // Load model-viewer after first paint
-  function _loadMV() {
-    var s = document.createElement('script');
-    s.type = 'module';
-    s.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js';
-    document.head.appendChild(s);
-  }
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(_loadMV);
-  } else {
-    setTimeout(_loadMV, 200);
-  }
-</script>
-
 <script>
-  function initCarViewer() {
-    const viewer = document.getElementById("car-viewer");
-    const skeleton = document.getElementById("model-skeleton");
-    const swatches = document.querySelectorAll(".color-swatch");
-    const colorLabel = document.getElementById("color-label");
-    const rotateLeft = document.getElementById("rotate-left");
-    const rotateRight = document.getElementById("rotate-right");
+  // Inject model-viewer on all devices after page settles
+  function initHero3D() {
+    const container = document.getElementById('hero-model-container');
+    if (!container) return;
 
-    if (!viewer) return;
+    const delay = 2000;
 
-    let currentOrbitDeg = 30; // starting orbit angle
+    // Load only after page is fully loaded and main thread is idle
+    const loadViewer = () => {
+      // Create <model-viewer>
+      const mv = document.createElement('model-viewer') as any;
+      mv.id = 'car-viewer';
+      mv.setAttribute('src', '/car-model.glb');
+      mv.setAttribute('alt', '3D Car Model — BGW California');
+      mv.setAttribute('auto-rotate', '');
+      mv.setAttribute('auto-rotate-delay', '0');
+      mv.setAttribute('rotation-per-second', '8deg');
+      mv.setAttribute('interaction-prompt', 'none');
+      mv.setAttribute('disable-zoom', '');
+      mv.setAttribute('shadow-intensity', '0.6');
+      mv.setAttribute('exposure', '0.8');
+      mv.setAttribute('camera-orbit', '30deg 70deg 75%');
+      mv.setAttribute('min-camera-orbit', 'auto 70deg 75%');
+      mv.setAttribute('max-camera-orbit', 'auto 70deg 75%');
+      mv.setAttribute('loading', 'lazy');
+      mv.setAttribute('reveal', 'auto');
+      mv.setAttribute('touch-action', 'none');
+      mv.setAttribute('tabindex', '-1');
+      mv.setAttribute('aria-hidden', 'true');
+      mv.style.cssText = 'width:100%;height:100%;--poster-color:transparent;opacity:0;transition:opacity .6s ease;cursor:default;pointer-events:none;position:absolute;inset:0;z-index:20;';
+      container.appendChild(mv);
 
-    // Show model when loaded
-    viewer.addEventListener("load", () => {
-      viewer.style.opacity = "1";
-      if (skeleton) skeleton.style.display = "none";
+      // Load model-viewer library
+      const s = document.createElement('script');
+      s.type = 'module';
+      s.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js';
+      document.head.appendChild(s);
 
-      const model = viewer.model;
-      if (model) {
-        console.log(
-          "Car materials:",
-          model.materials.map((m) => m.name)
-        );
-        applyColor([0.08, 0.18, 0.55], "gloss");
-      }
+      mv.addEventListener('load', () => {
+        mv.style.opacity = '1';
+        const skeleton = document.getElementById('model-skeleton');
+        if (skeleton) skeleton.style.display = 'none';
+        // Reveal controls
+        const controls = document.getElementById('hero-controls');
+        const label = document.getElementById('color-label');
+        if (controls) { controls.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none'); }
+        if (label) { label.classList.remove('opacity-0'); }
+        const model = mv.model;
+        if (model) applyColor(mv, [0.08, 0.18, 0.55], 'gloss');
+      });
+
+      initControls(mv);
+    };
+
+    window.addEventListener('load', () => {
+      setTimeout(loadViewer, delay);
     });
+  }
 
-    // Rotation buttons — step 30deg each click, pause auto-rotate briefly
-    function rotateBy(deg) {
-      const orbitStr = viewer.getCameraOrbit().toString();
-      // Parse current theta from orbit
+  function applyColor(viewer: any, rgb: number[], finish: string) {
+    const model = viewer.model;
+    if (!model) return;
+    const roughness = finish === 'matte' ? 0.8 : finish === 'satin' ? 0.5 : 0.2;
+    const metalness = 0.6;
+    const skip = ['glass','vidro','window','rubber','tire','pneu','chrome','steel','light','lamp','led','wheel','rim','roda','spoke','alloy','hubcap','interior','seat','banco','dashboard','painel','logo','emblem','badge','grille','grill','grade','mirror','espelho','brake','caliper','freio','lens','headlight','taillight','bumper','exhaust','muffler','plastic','carbon','fiber','decal','sticker'];
+    const bodyKw = ['body','paint','car','panel','hood','door','fender','trunk','roof','quarter','carroceria','pintura','capo','porta','lateral','chassis','bonnet','wrap','skin','shell','exterior'];
+    model.materials.forEach((mat: any) => {
+      const name = (mat.name || '').toLowerCase();
+      if (skip.some(s => name.includes(s))) return;
+      const pbr = mat.pbrMetallicRoughness;
+      if (bodyKw.some(k => name.includes(k))) {
+        const tex = pbr.baseColorTexture;
+        if (tex && tex.setTexture) tex.setTexture(null);
+      }
+      pbr.setBaseColorFactor([rgb[0], rgb[1], rgb[2], 1]);
+      pbr.setRoughnessFactor(roughness);
+      pbr.setMetallicFactor(metalness);
+    });
+  }
+
+  function initControls(viewer: any) {
+    const swatches = document.querySelectorAll('.color-swatch');
+    const colorLabel = document.getElementById('color-label');
+    const rotateLeft = document.getElementById('rotate-left');
+    const rotateRight = document.getElementById('rotate-right');
+    let currentOrbitDeg = 30;
+
+    function rotateBy(deg: number) {
       currentOrbitDeg += deg;
       viewer.autoRotate = false;
       viewer.cameraOrbit = `${currentOrbitDeg}deg 70deg 75%`;
-
-      // Resume auto-rotate after 3 seconds
-      clearTimeout(viewer._resumeTimer);
-      viewer._resumeTimer = setTimeout(() => {
-        viewer.autoRotate = true;
-      }, 3000);
+      clearTimeout(viewer._rt);
+      viewer._rt = setTimeout(() => { viewer.autoRotate = true; }, 3000);
     }
+    rotateLeft?.addEventListener('click', () => rotateBy(-30));
+    rotateRight?.addEventListener('click', () => rotateBy(30));
 
-    if (rotateLeft) {
-      rotateLeft.addEventListener("click", () => rotateBy(-30));
-    }
-    if (rotateRight) {
-      rotateRight.addEventListener("click", () => rotateBy(30));
-    }
-
-    // Color application
-    function applyColor(rgb, finish) {
-      const model = viewer.model;
-      if (!model) return;
-
-      const roughness =
-        finish === "matte" ? 0.8 : finish === "satin" ? 0.5 : 0.2;
-      const metalness = 0.6;
-
-      // Materials to NEVER touch
-      const skip = [
-        "glass", "vidro", "window",
-        "rubber", "tire", "pneu",
-        "chrome", "steel",
-        "light", "lamp", "led",
-        "wheel", "rim", "roda", "spoke", "alloy", "hubcap",
-        "interior", "seat", "banco", "dashboard", "painel",
-        "logo", "emblem", "badge",
-        "grille", "grill", "grade",
-        "mirror", "espelho",
-        "brake", "caliper", "freio",
-        "lens", "headlight", "taillight",
-        "bumper", "exhaust", "muffler",
-        "plastic", "carbon", "fiber",
-        "decal", "sticker",
-      ];
-
-      // Body panel keywords — only these get texture cleared
-      const bodyKeywords = [
-        "body", "paint", "car", "panel", "hood", "door",
-        "fender", "trunk", "roof", "quarter", "carroceria",
-        "pintura", "capo", "porta", "lateral", "chassis",
-        "bonnet", "wrap", "skin", "shell", "exterior",
-      ];
-
-      model.materials.forEach((mat) => {
-        const name = (mat.name || "").toLowerCase();
-
-        if (skip.some((s) => name.includes(s))) return;
-
-        const pbr = mat.pbrMetallicRoughness;
-        const isBody = bodyKeywords.some((k) => name.includes(k));
-
-        // Only clear textures on body panel materials
-        // so wheels/trim keep their original look
-        if (isBody) {
-          const texInfo = pbr.baseColorTexture;
-          if (texInfo && texInfo.setTexture) {
-            texInfo.setTexture(null);
-          }
-        }
-
-        pbr.setBaseColorFactor([rgb[0], rgb[1], rgb[2], 1]);
-        pbr.setRoughnessFactor(roughness);
-        pbr.setMetallicFactor(metalness);
-      });
-    }
-
-    // Swatch handlers
-    swatches.forEach((swatch) => {
-      swatch.addEventListener("click", () => {
-        const color = JSON.parse(swatch.dataset.color);
-        const finish = swatch.dataset.finish;
-        const name = swatch.dataset.name;
-
-        applyColor(color, finish);
-
-        swatches.forEach((s) => {
-          s.classList.remove("border-blue-500", "scale-110");
-          s.classList.add("border-white/10");
+    swatches.forEach(swatch => {
+      swatch.addEventListener('click', () => {
+        const el = swatch as HTMLElement;
+        const color = JSON.parse(el.dataset.color!);
+        const finish = el.dataset.finish!;
+        const name = el.dataset.name!;
+        applyColor(viewer, color, finish);
+        swatches.forEach(s => {
+          s.classList.remove('border-blue-500', 'scale-110');
+          s.classList.add('border-white/10');
         });
-        swatch.classList.remove("border-white/10");
-        swatch.classList.add("border-blue-500", "scale-110");
-
+        swatch.classList.remove('border-white/10');
+        swatch.classList.add('border-blue-500', 'scale-110');
         if (colorLabel) colorLabel.textContent = name;
       });
     });
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initCarViewer);
-  } else {
-    initCarViewer();
-  }
+  initHero3D();
 </script>
