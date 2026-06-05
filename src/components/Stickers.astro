@@ -1,0 +1,211 @@
+---
+import { Image } from 'astro:assets';
+import argentina from '../assets/stickers/argentina.png';
+import brasil from '../assets/stickers/brasil.png';
+import colombia from '../assets/stickers/colombia.png';
+import equador from '../assets/stickers/equador.png';
+import mexico from '../assets/stickers/mexico.png';
+import paraguai from '../assets/stickers/paraguai.png';
+import uruguai from '../assets/stickers/uruguai.png';
+
+const stickers = [
+  { country: 'Brasil', image: brasil, tone: 'from-green-500/25 via-yellow-400/10 to-blue-600/20' },
+  { country: 'Argentina', image: argentina, tone: 'from-sky-400/25 via-white/5 to-blue-600/20' },
+  { country: 'Mexico', image: mexico, tone: 'from-green-500/20 via-white/5 to-red-500/20' },
+  { country: 'Colombia', image: colombia, tone: 'from-yellow-400/25 via-red-500/10 to-blue-600/20' },
+  { country: 'Paraguai', image: paraguai, tone: 'from-red-500/25 via-white/5 to-blue-700/20' },
+  { country: 'Uruguai', image: uruguai, tone: 'from-sky-400/25 via-yellow-300/10 to-blue-600/20' },
+  { country: 'Equador', image: equador, tone: 'from-yellow-400/25 via-blue-600/10 to-red-500/20' },
+];
+---
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<section id="stickers" class="relative overflow-hidden bg-zinc-950 py-24 sm:py-28">
+  <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:42px_42px] opacity-20"></div>
+  <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+  <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+  <div class="relative z-10 w-full max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-10">
+    <!-- Header -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16">
+      <div>
+        <p class="text-yellow-400 text-xs font-bold uppercase tracking-[4px] mb-4">
+          Limited Sticker Drop
+        </p>
+        <h2 class="text-white text-4xl sm:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-tight">
+          Custom Fan Stickers
+        </h2>
+      </div>
+      <div class="max-w-[440px] lg:text-right">
+        <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+          Country-inspired decals with transparent cutout artwork, made for windows, toolboxes, coolers, laptops, and project cars.
+        </p>
+      </div>
+    </div>
+
+    <!-- Swiper Carousel -->
+    <div class="stickers-carousel-wrapper">
+      <!-- Prev / Next buttons — hidden on mobile via CSS -->
+      <button
+        id="stickers-prev"
+        class="stickers-nav-btn stickers-nav-prev"
+        aria-label="Previous sticker"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+
+      <div class="swiper stickers-swiper">
+        <div class="swiper-wrapper">
+          {stickers.map((sticker) => (
+            <div class="swiper-slide">
+              <article
+                class={`group relative overflow-hidden border border-white/10 bg-gradient-to-br ${sticker.tone} p-4 sm:p-5 hover:border-white/25 transition-all duration-300`}
+              >
+                <div class="relative aspect-[1.65/1] overflow-visible">
+                  <div class="absolute inset-x-6 bottom-4 h-10 bg-black/60 blur-2xl opacity-80"></div>
+                  <Image
+                    src={sticker.image}
+                    alt={`${sticker.country} fan sticker design`}
+                    width={760}
+                    format="webp"
+                    quality={86}
+                    loading="lazy"
+                    class="relative z-10 w-full h-full object-contain drop-shadow-[0_18px_34px_rgba(0,0,0,0.45)] transition-transform duration-700 group-hover:scale-[1.035]"
+                  />
+                </div>
+                <div class="flex items-center justify-between gap-4 pt-4">
+                  <h3 class="text-white text-sm font-bold uppercase tracking-[2px]">{sticker.country}</h3>
+                  <span class="text-zinc-400 text-[10px] font-bold uppercase tracking-[2px]">Sticker</span>
+                </div>
+              </article>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <button
+        id="stickers-next"
+        class="stickers-nav-btn stickers-nav-next"
+        aria-label="Next sticker"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+      <p class="text-zinc-500 text-xs uppercase tracking-[2px] leading-relaxed">
+        Transparent PNG artwork, high-impact colors, match-day attitude.
+      </p>
+      <a
+        href="/contact"
+        class="self-start sm:self-auto bg-yellow-400 hover:bg-yellow-300 text-black px-6 py-3 uppercase font-bold text-xs tracking-[2px] transition-colors duration-300 rounded-none no-underline"
+      >
+        Request Stickers
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── Wrapper ─────────────────────────────────────────── */
+  .stickers-carousel-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .stickers-swiper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* ── Navigation buttons ───────────────────────────────── */
+  .stickers-nav-btn {
+    flex-shrink: 0;
+    display: none; /* hidden on mobile by default */
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+    z-index: 10;
+  }
+
+  .stickers-nav-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .stickers-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .stickers-nav-btn.swiper-button-disabled {
+    opacity: 0.25;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .stickers-nav-prev { margin-right: 16px; }
+  .stickers-nav-next { margin-left:  16px; }
+
+  /* Show buttons only on desktop (≥ 768 px) */
+  @media (min-width: 768px) {
+    .stickers-nav-btn {
+      display: flex;
+    }
+  }
+</style>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" is:inline></script>
+<script is:inline>
+  (function () {
+    var swiper = new Swiper('.stickers-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 16,
+      grabCursor: true,
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      navigation: {
+        prevEl: '#stickers-prev',
+        nextEl: '#stickers-next',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1.35,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 2.5,
+          spaceBetween: 20,
+        },
+        1280: {
+          slidesPerView: 3,
+          spaceBetween: 20,
+        },
+      },
+    });
+  })();
+</script>
